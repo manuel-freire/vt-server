@@ -269,12 +269,15 @@ public class RootController {
 		log.info(apiKey + "/add/" + new ObjectMapper().writeValueAsString(data));
 		
 		if (data.getName() == null 
-				|| data.getElements() == null 
-				|| data.getElements().isEmpty()) {
+				|| data.getElements() == null) {
 			throw new IllegalArgumentException("Bad or missing initial parameters");
 		}
 		
 		User u = getUser(apiKey, false);
+		if (u.paramsMap().get(data.getName()) != null) {
+			throw new IllegalArgumentException("Invalid group name: VM with that name already exists");
+		}
+		
 		Group target = u.groupMap().get(data.getName());
 		if (target == null) {
 			// create new empty group instead of complaining
