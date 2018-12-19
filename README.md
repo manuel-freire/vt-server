@@ -49,5 +49,5 @@ VMs ó grupos que contiene.
 
 ## Nota
 
-Se aceptan sugerencias y "pull requests". Este está disponible bajo una licencia [Apache 2](https://www.apache.org/licenses/LICENSE-2.0).
+Se aceptan sugerencias y "pull requests". Este código está disponible bajo la licencia [Apache 2](https://www.apache.org/licenses/LICENSE-2.0).
 
