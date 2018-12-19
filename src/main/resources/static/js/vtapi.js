@@ -204,23 +204,29 @@ function add(conn, options) {
 * imports a machine
 * @param {String} conn url (with apikey as last path element) of endpoint
 * @param {String} name of machine that will be created
-* @param {Element} fileField, a file input element (<input type='file'>)
+* @param {String} fileName of file that will be used to create it.
+*                 the file should be in the json format returned by list, although
+*                 the vm name in the file will be replaced by the `name` parameter.
 * @throws {Exception} on error or other failure
 */
-function vtimport(conn, name, fileField) {
-  return response = upload(conn + '/import', {name: name}, fileField);
+function vtimport(conn, name, fileName) {
+  return response = send(conn + '/import', "POST", {name: name, fileName: fileName});
 }
 
 /**
-* exports a machine to a file. The file's URL is reported in the
-* response, and must be retrieved separately. Clients can have at most
-* 1 export file.
+* exports a machine to a file. The file is created at the server,
+* and can be retrieved via a GET request to conn + '/fileName'.
+* Use listfiles to see which files you can retrieve, and rmfile to remove
+* the ones you do not need.
 * @param {String} conn url (with apikey as last path element) of endpoint
-* @param {String} name of machine that will be created
+* @param {String} name of machine that will be exported
+* @param {String} fileName of file to export it to. Its description,
+*                 in the same format used to list all active VMs, will 
+*                 be written in that file. 
 * @throws {Exception} on error or other failure
 */
-function vtexport(conn, name) {
-  return response = send(conn + '/export', {name: name});
+function vtexport(conn, name, fileName) {
+  return response = send(conn + '/export', "POST", {name: name, fileName: fileName});
 }
 
 /**
